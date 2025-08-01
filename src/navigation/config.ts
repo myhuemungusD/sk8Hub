@@ -24,7 +24,7 @@ export const NAVIGATION_ANIMATIONS = {
       };
     },
   },
-  
+
   // Bottom sheet style for modals
   modalPresentationIOS: {
     cardStyleInterpolator: ({ current, layouts }: any) => {
@@ -42,7 +42,7 @@ export const NAVIGATION_ANIMATIONS = {
       };
     },
   },
-  
+
   // Fade in/out
   fade: {
     cardStyleInterpolator: ({ current }: any) => ({
@@ -72,7 +72,7 @@ export const SCREEN_OPTIONS = {
     headerTintColor: '#007AFF',
     headerBackTitleVisible: false,
   },
-  
+
   // Transparent header for map
   transparentHeader: {
     headerStyle: {
@@ -88,12 +88,12 @@ export const SCREEN_OPTIONS = {
     },
     headerTintColor: '#FFFFFF',
   },
-  
+
   // No header for full-screen experiences
   noHeader: {
     headerShown: false,
   },
-  
+
   // Modal presentation
   modal: {
     presentation: 'modal' as const,
@@ -202,13 +202,13 @@ export const LINKING_CONFIG = {
 export const NAVIGATION_TIMING = {
   // Standard transition duration
   TRANSITION_DURATION: 300,
-  
+
   // Quick transitions for tabs
   TAB_TRANSITION_DURATION: 150,
-  
+
   // Modal presentation timing
   MODAL_TRANSITION_DURATION: 250,
-  
+
   // Gesture response distances
   GESTURE_RESPONSE_DISTANCE: {
     horizontal: 50,
@@ -229,19 +229,12 @@ export const SCREEN_CONFIGS = {
     'EditProfile',
     'GearDetails',
   ],
-  
+
   // Screens that should have swipe gesture disabled
-  DISABLE_SWIPE_BACK: [
-    'ActiveBattle',
-    'RecordTrick',
-    'Checkout',
-  ],
-  
+  DISABLE_SWIPE_BACK: ['ActiveBattle', 'RecordTrick', 'Checkout'],
+
   // Screens that should prevent back navigation
-  PREVENT_BACK: [
-    'BattleResults',
-    'PurchaseSuccess',
-  ],
+  PREVENT_BACK: ['BattleResults', 'PurchaseSuccess'],
 };
 
 // Icon mappings for tab bar

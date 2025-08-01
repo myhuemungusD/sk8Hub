@@ -52,17 +52,17 @@ const VideoPlayerModal = () => (
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+    justifyContent: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 12,
     alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 12,
     minWidth: 300,
+    padding: 20,
   },
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
 });
@@ -82,18 +82,12 @@ export function RootNavigator({ isAuthenticated = false }: RootNavigatorProps) {
     >
       {!isAuthenticated ? (
         // Authentication Flow
-        <Stack.Screen 
-          name="Auth" 
-          component={AuthNavigator}
-        />
+        <Stack.Screen name="Auth" component={AuthNavigator} />
       ) : (
         // Main App Flow
-        <Stack.Screen 
-          name="Main" 
-          component={TabNavigator}
-        />
+        <Stack.Screen name="Main" component={TabNavigator} />
       )}
-      
+
       {/* Modal Screens - Available in both authenticated and unauthenticated states */}
       <Stack.Group
         screenOptions={{
@@ -101,22 +95,13 @@ export function RootNavigator({ isAuthenticated = false }: RootNavigatorProps) {
           headerShown: false,
         }}
       >
-        <Stack.Screen 
-          name="BattleInvite" 
-          component={BattleInviteModal}
-        />
-        
-        <Stack.Screen 
-          name="SpotModal" 
-          component={SpotModal}
-        />
-        
-        <Stack.Screen 
-          name="GearPreview" 
-          component={GearPreviewModal}
-        />
+        <Stack.Screen name="BattleInvite" component={BattleInviteModal} />
+
+        <Stack.Screen name="SpotModal" component={SpotModal} />
+
+        <Stack.Screen name="GearPreview" component={GearPreviewModal} />
       </Stack.Group>
-      
+
       {/* Full Screen Modals */}
       <Stack.Group
         screenOptions={{
@@ -124,10 +109,7 @@ export function RootNavigator({ isAuthenticated = false }: RootNavigatorProps) {
           ...SCREEN_OPTIONS.noHeader,
         }}
       >
-        <Stack.Screen 
-          name="VideoPlayer" 
-          component={VideoPlayerModal}
-        />
+        <Stack.Screen name="VideoPlayer" component={VideoPlayerModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

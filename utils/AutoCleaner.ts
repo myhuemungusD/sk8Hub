@@ -29,7 +29,7 @@ class AutoCleaner {
     lastCleanup: new Date(),
     itemsCleaned: 0,
     memoryFreed: 0,
-    storageFreed: 0
+    storageFreed: 0,
   };
 
   constructor(config: Partial<CleanupConfig> = {}) {
@@ -40,7 +40,7 @@ class AutoCleaner {
       maxCacheAge: 24 * 60 * 60 * 1000, // 24 hours
       maxStorageSize: 50 * 1024 * 1024, // 50MB
       cleanupInterval: 60 * 60 * 1000, // 1 hour
-      ...config
+      ...config,
     };
 
     this.startAutoCleanup();
@@ -61,7 +61,7 @@ class AutoCleaner {
 
   private async performAutoCleanup() {
     console.log('🧹 Starting automatic cleanup...');
-    
+
     try {
       let totalItemsCleaned = 0;
       let totalMemoryFreed = 0;
@@ -88,10 +88,12 @@ class AutoCleaner {
         lastCleanup: new Date(),
         itemsCleaned: totalItemsCleaned,
         memoryFreed: totalMemoryFreed,
-        storageFreed: totalStorageFreed
+        storageFreed: totalStorageFreed,
       };
 
-      console.log(`✅ Cleanup completed: ${totalItemsCleaned} items, ${this.formatBytes(totalStorageFreed)} storage freed`);
+      console.log(
+        `✅ Cleanup completed: ${totalItemsCleaned} items, ${this.formatBytes(totalStorageFreed)} storage freed`
+      );
     } catch (error) {
       console.error('❌ Cleanup failed:', error);
     }
@@ -110,13 +112,17 @@ class AutoCleaner {
     return 0;
   }
 
-  private async cleanupCache(): Promise<{ itemsCleaned: number; storageFreed: number }> {
+  private async cleanupCache(): Promise<{
+    itemsCleaned: number;
+    storageFreed: number;
+  }> {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      const cacheKeys = keys.filter((key: string) => 
-        key.startsWith('cache_') || 
-        key.startsWith('temp_') ||
-        key.startsWith('image_cache_')
+      const cacheKeys = keys.filter(
+        (key: string) =>
+          key.startsWith('cache_') ||
+          key.startsWith('temp_') ||
+          key.startsWith('image_cache_')
       );
 
       let itemsCleaned = 0;
@@ -128,9 +134,12 @@ class AutoCleaner {
           const item = await AsyncStorage.getItem(key);
           if (item) {
             const parsed = JSON.parse(item);
-            
+
             // Check if item has expired
-            if (parsed.timestamp && (now - parsed.timestamp) > this.config.maxCacheAge) {
+            if (
+              parsed.timestamp &&
+              now - parsed.timestamp > this.config.maxCacheAge
+            ) {
               await AsyncStorage.removeItem(key);
               itemsCleaned++;
               storageFreed += item.length;
@@ -143,7 +152,9 @@ class AutoCleaner {
         }
       }
 
-      console.log(`🗂️ Cache cleanup: ${itemsCleaned} items removed, ${this.formatBytes(storageFreed)} freed`);
+      console.log(
+        `🗂️ Cache cleanup: ${itemsCleaned} items removed, ${this.formatBytes(storageFreed)} freed`
+      );
       return { itemsCleaned, storageFreed };
     } catch (error) {
       console.error('Cache cleanup failed:', error);
@@ -151,7 +162,10 @@ class AutoCleaner {
     }
   }
 
-  private async cleanupOldStorage(): Promise<{ itemsCleaned: number; storageFreed: number }> {
+  private async cleanupOldStorage(): Promise<{
+    itemsCleaned: number;
+    storageFreed: number;
+  }> {
     try {
       const keys = await AsyncStorage.getAllKeys();
       let totalSize = 0;
@@ -168,7 +182,11 @@ class AutoCleaner {
 
       // If we're over the limit, remove oldest items
       if (totalSize > this.config.maxStorageSize) {
-        const itemsWithTimestamp: Array<{ key: string; timestamp: number; size: number }> = [];
+        const itemsWithTimestamp: Array<{
+          key: string;
+          timestamp: number;
+          size: number;
+        }> = [];
 
         for (const key of keys) {
           try {
@@ -179,7 +197,7 @@ class AutoCleaner {
               itemsWithTimestamp.push({
                 key,
                 timestamp,
-                size: item.length
+                size: item.length,
               });
             }
           } catch (error) {
@@ -188,7 +206,7 @@ class AutoCleaner {
             itemsWithTimestamp.push({
               key,
               timestamp: 0,
-              size: item?.length || 0
+              size: item?.length || 0,
             });
           }
         }
@@ -199,7 +217,7 @@ class AutoCleaner {
         let currentSize = totalSize;
         for (const item of itemsWithTimestamp) {
           if (currentSize <= this.config.maxStorageSize) break;
-          
+
           await AsyncStorage.removeItem(item.key);
           currentSize -= item.size;
           storageFreed += item.size;
@@ -207,7 +225,9 @@ class AutoCleaner {
         }
       }
 
-      console.log(`💾 Storage cleanup: ${itemsCleaned} items removed, ${this.formatBytes(storageFreed)} freed`);
+      console.log(
+        `💾 Storage cleanup: ${itemsCleaned} items removed, ${this.formatBytes(storageFreed)} freed`
+      );
       return { itemsCleaned, storageFreed };
     } catch (error) {
       console.error('Storage cleanup failed:', error);
@@ -253,12 +273,13 @@ class AutoCleaner {
   public async clearAllCache(): Promise<void> {
     try {
       const keys = await AsyncStorage.getAllKeys();
-      const cacheKeys = keys.filter((key: string) => 
-        key.startsWith('cache_') || 
-        key.startsWith('temp_') ||
-        key.startsWith('image_cache_')
+      const cacheKeys = keys.filter(
+        (key: string) =>
+          key.startsWith('cache_') ||
+          key.startsWith('temp_') ||
+          key.startsWith('image_cache_')
       );
-      
+
       await AsyncStorage.multiRemove(cacheKeys);
       console.log(`🗑️ Cleared all cache: ${cacheKeys.length} items removed`);
     } catch (error) {
@@ -266,7 +287,10 @@ class AutoCleaner {
     }
   }
 
-  public async getStorageInfo(): Promise<{ totalKeys: number; totalSize: string }> {
+  public async getStorageInfo(): Promise<{
+    totalKeys: number;
+    totalSize: string;
+  }> {
     try {
       const keys = await AsyncStorage.getAllKeys();
       let totalSize = 0;
@@ -280,7 +304,7 @@ class AutoCleaner {
 
       return {
         totalKeys: keys.length,
-        totalSize: this.formatBytes(totalSize)
+        totalSize: this.formatBytes(totalSize),
       };
     } catch (error) {
       console.error('Failed to get storage info:', error);
@@ -303,7 +327,7 @@ const cleaner = new AutoCleaner({
   enableStorageCleanup: true,
   maxCacheAge: 24 * 60 * 60 * 1000, // 24 hours
   maxStorageSize: 50 * 1024 * 1024, // 50MB
-  cleanupInterval: 30 * 60 * 1000 // 30 minutes
+  cleanupInterval: 30 * 60 * 1000, // 30 minutes
 });
 
 export default cleaner;
