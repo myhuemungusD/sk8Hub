@@ -1,182 +1,62 @@
+/**
+ * SkateHubba App
+ * Elite-level React Native app with comprehensive navigation
+ */
+
 import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { AppNavigation } from './src/navigation';
 import AutoCleaner from './utils/AutoCleaner';
-import MapScreen from './screens/MapScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import ShopScreen from './screens/ShopScreen';
-import SkateScreen from './screens/SkateScreen';
-
-const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [cleanupStats, setCleanupStats] = useState<any>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAppReady, setIsAppReady] = useState(false);
 
   useEffect(() => {
-    // Initialize utilities
-    console.log('SkateHubba app started');
-    
-    // Get initial stats
-    updateStats();
-    
-    // Set up periodic stats update
-    const interval = setInterval(updateStats, 30000); // Update every 30 seconds
+    // Initialize app
+    initializeApp();
     
     return () => {
-      clearInterval(interval);
+      // Cleanup
       AutoCleaner.stop();
     };
   }, []);
 
-  const updateStats = async () => {
+  const initializeApp = async () => {
     try {
-      const cleanup = AutoCleaner.getStats();
-      const storage = await AutoCleaner.getStorageInfo();
+      // Initialize utilities
+      console.log('🛹 SkateHubba app starting...');
       
-      setCleanupStats({ ...cleanup, storage });
+      // Check authentication status
+      // const user = await checkAuthStatus();
+      // setIsAuthenticated(!!user);
+      
+      // For development, set to false to see auth flow
+      setIsAuthenticated(false);
+      
+      // App is ready
+      setIsAppReady(true);
+      
+      console.log('🛹 SkateHubba app ready!');
     } catch (error) {
-      console.error('Failed to update stats:', error);
+      console.error('App initialization failed:', error);
+      setIsAppReady(true); // Still show app even if initialization fails
     }
   };
 
-  const performManualCleanup = async () => {
-    try {
-      console.log('Manual cleanup triggered');
-      const stats = await AutoCleaner.manualCleanup();
-      setCleanupStats({ ...stats, storage: await AutoCleaner.getStorageInfo() });
-      Alert.alert('Cleanup Complete', `Cleaned ${stats.itemsCleaned} items`);
-    } catch (error) {
-      console.error('Manual cleanup failed:', error);
-      Alert.alert('Cleanup Failed', 'Please try again later');
-    }
+  const handleNavigationReady = () => {
+    // Navigation is ready, can perform additional setup
+    console.log('🧭 Navigation system ready');
   };
 
-  const showAppInfo = () => {
-    Alert.alert(
-      'SkateHubba Info', 
-      'React Native app with AutoCleaner utility\n\n• Automatic cache cleanup\n• Memory management\n• Storage optimization'
-    );
-  };
+  if (!isAppReady) {
+    // You can show a splash screen here
+    return null;
+  }
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="SKATE" component={SkateScreen} />
-        <Tab.Screen name="Shop" component={ShopScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-      </Tab.Navigator>
-
-      <View style={styles.container}>
-        <Text style={styles.title}>🛹 SkateHubba</Text>
-        <Text style={styles.subtitle}>React Native App with Auto Utils</Text>
-        
-        <View style={styles.statsContainer}>
-          <Text style={styles.statsTitle}>📊 System Stats</Text>
-          
-          {cleanupStats && (
-            <View style={styles.statBlock}>
-              <Text style={styles.statLabel}>Last Cleanup:</Text>
-              <Text style={styles.statValue}>
-                {new Date(cleanupStats.lastCleanup).toLocaleTimeString()}
-              </Text>
-              <Text style={styles.statValue}>
-                Storage: {cleanupStats.storage?.totalSize} ({cleanupStats.storage?.totalKeys} items)
-              </Text>
-            </View>
-          )}
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={performManualCleanup}>
-            <Text style={styles.buttonText}>🧹 Manual Cleanup</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.button} onPress={showAppInfo}>
-            <Text style={styles.buttonText}>ℹ️ App Info</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.button} onPress={updateStats}>
-            <Text style={styles.buttonText}>🔄 Refresh Stats</Text>
-          </TouchableOpacity>
-        </View>
-        
-        <StatusBar style="auto" />
-      </View>
-    </NavigationContainer>
+    <AppNavigation
+      isAuthenticated={isAuthenticated}
+      onNavigationReady={handleNavigationReady}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  statsContainer: {
-    backgroundColor: '#fff',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 30,
-    width: '100%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  statsTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  statBlock: {
-    marginBottom: 12,
-  },
-  statLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#555',
-    marginBottom: 4,
-  },
-  statValue: {
-    fontSize: 13,
-    color: '#777',
-    marginLeft: 8,
-  },
-  buttonContainer: {
-    width: '100%',
-    gap: 12,
-  },
-  button: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});

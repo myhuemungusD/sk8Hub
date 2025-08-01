@@ -1,0 +1,179 @@
+/**
+ * Navigation Demo Component
+ * Shows how to use the elite navigation system
+ */
+
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { useAppNavigation, useCurrentRouteName, useTabBarVisibility } from '../hooks/useNavigation';
+
+export default function NavigationDemo() {
+  const navigation = useAppNavigation();
+  const currentRoute = useCurrentRouteName();
+  const { hideTabBar, showTabBar } = useTabBarVisibility();
+
+  const navigationExamples = [
+    {
+      title: 'Navigate to Spot Details',
+      action: () => navigation.navigate('Main', {
+        screen: 'MapStack',
+        params: {
+          screen: 'SpotDetails',
+          params: {
+            spotId: 'demo-spot-1',
+            spotName: 'Venice Beach Skate Park',
+            latitude: 33.9850,
+            longitude: -118.4695,
+          }
+        }
+      })
+    },
+    {
+      title: 'Start Battle',
+      action: () => navigation.navigate('Main', {
+        screen: 'BattleStack',
+        params: {
+          screen: 'BattleLobby'
+        }
+      })
+    },
+    {
+      title: 'View Shop Item',
+      action: () => navigation.navigate('Main', {
+        screen: 'ShopStack',
+        params: {
+          screen: 'ItemDetails',
+          params: {
+            itemId: 'deck-001',
+            itemName: 'Thunder Deck Pro',
+            price: 120,
+            rarity: 'epic'
+          }
+        }
+      })
+    },
+    {
+      title: 'Open Closet',
+      action: () => navigation.navigate('Main', {
+        screen: 'ProfileStack',
+        params: {
+          screen: 'Closet'
+        }
+      })
+    },
+    {
+      title: 'Show Battle Invite Modal',
+      action: () => navigation.navigate('BattleInvite', {
+        fromUserId: 'user123',
+        fromUsername: 'ProSkater2024'
+      })
+    },
+    {
+      title: 'Hide Tab Bar',
+      action: hideTabBar
+    },
+    {
+      title: 'Show Tab Bar',
+      action: showTabBar
+    }
+  ];
+
+  return (
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>🧭 Navigation Demo</Text>
+      <Text style={styles.subtitle}>Current Route: {currentRoute || 'Unknown'}</Text>
+      
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Navigation Examples</Text>
+        {navigationExamples.map((example, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.button}
+            onPress={example.action}
+          >
+            <Text style={styles.buttonText}>{example.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Navigation Features</Text>
+        <Text style={styles.feature}>✅ Type-safe navigation with TypeScript</Text>
+        <Text style={styles.feature}>✅ Deep linking support</Text>
+        <Text style={styles.feature}>✅ Modal presentations</Text>
+        <Text style={styles.feature}>✅ Tab bar visibility control</Text>
+        <Text style={styles.feature}>✅ Screen tracking and analytics</Text>
+        <Text style={styles.feature}>✅ Back button handling</Text>
+        <Text style={styles.feature}>✅ Gesture customization</Text>
+        <Text style={styles.feature}>✅ Animation configurations</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Architecture Highlights</Text>
+        <Text style={styles.feature}>🏗️ Modular stack navigators</Text>
+        <Text style={styles.feature}>🎯 Centralized configuration</Text>
+        <Text style={styles.feature}>🪝 Custom navigation hooks</Text>
+        <Text style={styles.feature}>🔗 Deep linking ready</Text>
+        <Text style={styles.feature}>📱 Modal system</Text>
+        <Text style={styles.feature}>🎨 Consistent styling</Text>
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  section: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 15,
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  feature: {
+    fontSize: 14,
+    color: '#555',
+    marginBottom: 8,
+    lineHeight: 20,
+  },
+});
