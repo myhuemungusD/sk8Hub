@@ -52,26 +52,26 @@ export function TabNavigator() {
         tabBarIconStyle: TAB_BAR_CONFIG.iconStyle,
       })}
     >
-      <Tab.Screen 
-        name="MapStack" 
+      <Tab.Screen
+        name="MapStack"
         component={MapStackNavigator}
         options={{
           title: 'Map',
           tabBarLabel: 'Map',
         }}
       />
-      
-      <Tab.Screen 
-        name="BattleStack" 
+
+      <Tab.Screen
+        name="BattleStack"
         component={BattleStackNavigator}
         options={{
           title: 'SKATE',
           tabBarLabel: 'SKATE',
         }}
       />
-      
-      <Tab.Screen 
-        name="ShopStack" 
+
+      <Tab.Screen
+        name="ShopStack"
         component={ShopStackNavigator}
         options={{
           title: 'Shop',
@@ -79,9 +79,9 @@ export function TabNavigator() {
           tabBarBadge: undefined, // You can add badge for new items
         }}
       />
-      
-      <Tab.Screen 
-        name="ProfileStack" 
+
+      <Tab.Screen
+        name="ProfileStack"
         component={ProfileStackNavigator}
         options={{
           title: 'Profile',

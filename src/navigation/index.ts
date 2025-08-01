@@ -4,7 +4,12 @@
  */
 
 // Main navigation component
-export { AppNavigation, navigate, goBack, navigationRef } from './AppNavigation';
+export {
+  AppNavigation,
+  navigate,
+  goBack,
+  navigationRef,
+} from './AppNavigation';
 
 // Individual navigators
 export { RootNavigator } from './RootNavigator';

@@ -64,25 +64,25 @@ export function BattleStackNavigator() {
         ...SCREEN_OPTIONS.defaultHeader,
       }}
     >
-      <Stack.Screen 
-        name="BattleHome" 
+      <Stack.Screen
+        name="BattleHome"
         component={SkateScreen}
         options={{
           title: 'SKATE Battles',
         }}
       />
-      
-      <Stack.Screen 
-        name="BattleLobby" 
+
+      <Stack.Screen
+        name="BattleLobby"
         component={BattleLobbyScreen}
         options={{
           title: 'Start Battle',
           headerBackTitle: 'Battles',
         }}
       />
-      
-      <Stack.Screen 
-        name="ActiveBattle" 
+
+      <Stack.Screen
+        name="ActiveBattle"
         component={ActiveBattleScreen}
         options={({ route }) => ({
           title: `vs ${route.params.opponentUsername}`,
@@ -90,18 +90,18 @@ export function BattleStackNavigator() {
           gestureEnabled: false, // Prevent accidental swipe back during battle
         })}
       />
-      
-      <Stack.Screen 
-        name="BattleHistory" 
+
+      <Stack.Screen
+        name="BattleHistory"
         component={BattleHistoryScreen}
         options={{
           title: 'Battle History',
           headerBackTitle: 'Battles',
         }}
       />
-      
-      <Stack.Screen 
-        name="RecordTrick" 
+
+      <Stack.Screen
+        name="RecordTrick"
         component={RecordTrickScreen}
         options={{
           title: 'Record Trick',
@@ -110,9 +110,9 @@ export function BattleStackNavigator() {
           gestureEnabled: false,
         }}
       />
-      
-      <Stack.Screen 
-        name="BattleResults" 
+
+      <Stack.Screen
+        name="BattleResults"
         component={BattleResultsScreen}
         options={{
           title: 'Battle Complete',

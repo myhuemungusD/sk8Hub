@@ -29,7 +29,7 @@ class AutoDebugger {
       enableErrorTracking: true,
       enablePerformanceMonitoring: true,
       logLevel: 'debug',
-      ...config
+      ...config,
     };
 
     this.setupErrorTracking();
@@ -42,19 +42,24 @@ class AutoDebugger {
     // Global error handler
     const originalErrorHandler = (global as any).ErrorUtils?.setGlobalHandler;
     if (originalErrorHandler) {
-      (global as any).ErrorUtils.setGlobalHandler((error: Error, isFatal?: boolean) => {
-        this.logError('Global Error', error, { isFatal });
-        originalErrorHandler(error, isFatal);
-      });
+      (global as any).ErrorUtils.setGlobalHandler(
+        (error: Error, isFatal?: boolean) => {
+          this.logError('Global Error', error, { isFatal });
+          originalErrorHandler(error, isFatal);
+        }
+      );
     }
 
     // Unhandled promise rejections
-    const originalRejectionHandler = (global as any).HermesInternal?.setPromiseRejectionHandler;
+    const originalRejectionHandler = (global as any).HermesInternal
+      ?.setPromiseRejectionHandler;
     if (originalRejectionHandler) {
-      (global as any).HermesInternal.setPromiseRejectionHandler((reason: any) => {
-        this.logError('Unhandled Promise Rejection', new Error(reason));
-        originalRejectionHandler(reason);
-      });
+      (global as any).HermesInternal.setPromiseRejectionHandler(
+        (reason: any) => {
+          this.logError('Unhandled Promise Rejection', new Error(reason));
+          originalRejectionHandler(reason);
+        }
+      );
     }
   }
 
@@ -94,7 +99,7 @@ class AutoDebugger {
       timestamp: new Date(),
       level,
       message,
-      context
+      context,
     };
 
     this.logs.push(log);
@@ -108,7 +113,7 @@ class AutoDebugger {
   public logError(title: string, error: Error, context?: any) {
     this.addLog('error', `${title}: ${error.message}`, {
       stack: error.stack,
-      ...context
+      ...context,
     });
   }
 
@@ -148,12 +153,18 @@ class AutoDebugger {
       return result;
     } catch (error) {
       const endTime = Date.now();
-      this.logError(`Performance Error in ${name} (${endTime - startTime}ms)`, error as Error);
+      this.logError(
+        `Performance Error in ${name} (${endTime - startTime}ms)`,
+        error as Error
+      );
       throw error;
     }
   }
 
-  public async measureAsyncPerformance<T>(name: string, fn: () => Promise<T>): Promise<T> {
+  public async measureAsyncPerformance<T>(
+    name: string,
+    fn: () => Promise<T>
+  ): Promise<T> {
     if (!this.config.enablePerformanceMonitoring) return fn();
 
     const startTime = Date.now();
@@ -164,7 +175,10 @@ class AutoDebugger {
       return result;
     } catch (error) {
       const endTime = Date.now();
-      this.logError(`Async Performance Error in ${name} (${endTime - startTime}ms)`, error as Error);
+      this.logError(
+        `Async Performance Error in ${name} (${endTime - startTime}ms)`,
+        error as Error
+      );
       throw error;
     }
   }
@@ -201,7 +215,7 @@ const autoDebugger = new AutoDebugger({
   enableConsoleLogging: __DEV__,
   enableErrorTracking: true,
   enablePerformanceMonitoring: __DEV__,
-  logLevel: __DEV__ ? 'debug' : 'error'
+  logLevel: __DEV__ ? 'debug' : 'error',
 });
 
 export default autoDebugger;

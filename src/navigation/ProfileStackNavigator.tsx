@@ -71,8 +71,8 @@ export function ProfileStackNavigator() {
         ...SCREEN_OPTIONS.defaultHeader,
       }}
     >
-      <Stack.Screen 
-        name="ProfileHome" 
+      <Stack.Screen
+        name="ProfileHome"
         component={ProfileScreen}
         options={{
           title: 'Profile',
@@ -82,54 +82,54 @@ export function ProfileStackNavigator() {
           ),
         }}
       />
-      
-      <Stack.Screen 
-        name="Closet" 
+
+      <Stack.Screen
+        name="Closet"
         component={ClosetScreen}
         options={{
           title: 'Closet',
           headerBackTitle: 'Profile',
         }}
       />
-      
-      <Stack.Screen 
-        name="EditProfile" 
+
+      <Stack.Screen
+        name="EditProfile"
         component={EditProfileScreen}
         options={{
           title: 'Edit Profile',
           headerBackTitle: 'Profile',
         }}
       />
-      
-      <Stack.Screen 
-        name="Settings" 
+
+      <Stack.Screen
+        name="Settings"
         component={SettingsScreen}
         options={{
           title: 'Settings',
           headerBackTitle: 'Profile',
         }}
       />
-      
-      <Stack.Screen 
-        name="Stats" 
+
+      <Stack.Screen
+        name="Stats"
         component={StatsScreen}
         options={{
           title: 'Statistics',
           headerBackTitle: 'Profile',
         }}
       />
-      
-      <Stack.Screen 
-        name="Achievements" 
+
+      <Stack.Screen
+        name="Achievements"
         component={AchievementsScreen}
         options={{
           title: 'Achievements',
           headerBackTitle: 'Profile',
         }}
       />
-      
-      <Stack.Screen 
-        name="GearDetails" 
+
+      <Stack.Screen
+        name="GearDetails"
         component={GearDetailsScreen}
         options={({ route }) => ({
           title: route.params.gearName || 'Gear Details',

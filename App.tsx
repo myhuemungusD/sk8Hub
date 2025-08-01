@@ -14,7 +14,7 @@ export default function App() {
   useEffect(() => {
     // Initialize app
     initializeApp();
-    
+
     return () => {
       // Cleanup
       AutoCleaner.stop();
@@ -25,17 +25,17 @@ export default function App() {
     try {
       // Initialize utilities
       console.log('🛹 SkateHubba app starting...');
-      
+
       // Check authentication status
       // const user = await checkAuthStatus();
       // setIsAuthenticated(!!user);
-      
+
       // For development, set to false to see auth flow
       setIsAuthenticated(false);
-      
+
       // App is ready
       setIsAppReady(true);
-      
+
       console.log('🛹 SkateHubba app ready!');
     } catch (error) {
       console.error('App initialization failed:', error);
