@@ -36,7 +36,7 @@ const NearbySkatersScreen = () => (
 );
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  container: { alignItems: 'center', flex: 1, justifyContent: 'center' },
   title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
 });
 
@@ -50,26 +50,26 @@ export function MapStackNavigator() {
         ...SCREEN_OPTIONS.defaultHeader,
       }}
     >
-      <Stack.Screen 
-        name="MapHome" 
+      <Stack.Screen
+        name="MapHome"
         component={MapScreen}
         options={{
           title: 'SkateHubba',
           ...SCREEN_OPTIONS.transparentHeader,
         }}
       />
-      
-      <Stack.Screen 
-        name="SpotDetails" 
+
+      <Stack.Screen
+        name="SpotDetails"
         component={SpotDetailsScreen}
         options={({ route }) => ({
           title: route.params.spotName || 'Spot Details',
           headerBackTitle: 'Map',
         })}
       />
-      
-      <Stack.Screen 
-        name="CheckIn" 
+
+      <Stack.Screen
+        name="CheckIn"
         component={CheckInScreen}
         options={{
           title: 'Check In',
@@ -77,9 +77,9 @@ export function MapStackNavigator() {
           presentation: 'modal',
         }}
       />
-      
-      <Stack.Screen 
-        name="NearbySkaters" 
+
+      <Stack.Screen
+        name="NearbySkaters"
         component={NearbySkatersScreen}
         options={{
           title: 'Nearby Skaters',

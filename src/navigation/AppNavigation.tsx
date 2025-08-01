@@ -4,7 +4,10 @@
  */
 
 import React, { useRef, useEffect } from 'react';
-import { NavigationContainer, createNavigationContainerRef } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  createNavigationContainerRef,
+} from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -34,9 +37,9 @@ interface AppNavigationProps {
   onNavigationReady?: () => void;
 }
 
-export function AppNavigation({ 
-  isAuthenticated = false, 
-  onNavigationReady 
+export function AppNavigation({
+  isAuthenticated = false,
+  onNavigationReady,
 }: AppNavigationProps) {
   // Track navigation state for analytics/debugging
   const routeNameRef = useRef<string | undefined>(undefined);
@@ -57,11 +60,14 @@ export function AppNavigation({
           // Get initial route name
           const currentRouteName = navigationRef.getCurrentRoute()?.name;
           routeNameRef.current = currentRouteName;
-          
+
           if (__DEV__) {
-            console.log('🧭 Navigation ready. Initial route:', currentRouteName);
+            console.log(
+              '🧭 Navigation ready. Initial route:',
+              currentRouteName
+            );
           }
-          
+
           onNavigationReady?.();
         }}
         onStateChange={async () => {
@@ -71,9 +77,14 @@ export function AppNavigation({
           if (previousRouteName !== currentRouteName) {
             // Track screen changes for analytics
             if (__DEV__) {
-              console.log('🧭 Route changed:', previousRouteName, '->', currentRouteName);
+              console.log(
+                '🧭 Route changed:',
+                previousRouteName,
+                '->',
+                currentRouteName
+              );
             }
-            
+
             // You can integrate analytics here:
             // await analytics().logScreenView({
             //   screen_name: currentRouteName,
@@ -94,13 +105,17 @@ export function AppNavigation({
 }
 
 // Export navigation utilities
-export { useAppNavigation, useBackHandler, useTabBarVisibility } from '../hooks/useNavigation';
-export type { 
-  RootStackParamList, 
+export {
+  useAppNavigation,
+  useBackHandler,
+  useTabBarVisibility,
+} from '../hooks/useNavigation';
+export type {
+  RootStackParamList,
   MainTabParamList,
   AuthStackParamList,
   MapStackParamList,
   BattleStackParamList,
   ShopStackParamList,
-  ProfileStackParamList 
+  ProfileStackParamList,
 } from '../types/navigation';
