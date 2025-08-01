@@ -1,6 +1,19 @@
-# 🛹 SkateHubba
+# SkateHubba
 
-A React Native Expo app built with TypeScript, featuring integrated auto cleaning utilities.
+SkateHubba is a next-level, community-driven skateboarding app that fuses real-world skating with a social, game-like digital experience. Inspired by Pokémon GO, Fortnite, and core skate culture, it lets users:
+
+- **Check in to real skate spots on a live map** and see who’s skating nearby in real time.
+- **Play remote SKATE battles:** record and challenge friends with trick videos, with 24-hour turn windows.
+- **Flex rare, limited-edition gear** in a customizable “closet” and 3D avatar profile, just like a Fortnite locker or Pokémon GO trainer page.
+- **Trade gear and collectibles** with other players, with every item tracked for rarity and history.
+- **Complete daily challenges, earn coins, and level up** for new cosmetics, badges, and exclusive rewards.
+- **Shop a rotating, limited-supply in-app store** for skate gear, tricks, and style items—no ads, no popups, pure culture.
+- **Join live skate sessions, spectate streams, and battle for spot dominance.**
+- **Build your reputation** through stats, badges, and an ever-expanding skate crew.
+
+---
+
+Stay tuned for more features and updates as the SkateHubba community grows!
 
 ## 🚀 Features
 

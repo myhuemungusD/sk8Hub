@@ -1,7 +1,16 @@
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
-import { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import AutoCleaner from './utils/AutoCleaner';
+import MapScreen from './screens/MapScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ShopScreen from './screens/ShopScreen';
+import SkateScreen from './screens/SkateScreen';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [cleanupStats, setCleanupStats] = useState<any>(null);
@@ -53,42 +62,51 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>🛹 SkateHubba</Text>
-      <Text style={styles.subtitle}>React Native App with Auto Utils</Text>
-      
-      <View style={styles.statsContainer}>
-        <Text style={styles.statsTitle}>📊 System Stats</Text>
-        
-        {cleanupStats && (
-          <View style={styles.statBlock}>
-            <Text style={styles.statLabel}>Last Cleanup:</Text>
-            <Text style={styles.statValue}>
-              {new Date(cleanupStats.lastCleanup).toLocaleTimeString()}
-            </Text>
-            <Text style={styles.statValue}>
-              Storage: {cleanupStats.storage?.totalSize} ({cleanupStats.storage?.totalKeys} items)
-            </Text>
-          </View>
-        )}
-      </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Map" component={MapScreen} />
+        <Tab.Screen name="SKATE" component={SkateScreen} />
+        <Tab.Screen name="Shop" component={ShopScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={performManualCleanup}>
-          <Text style={styles.buttonText}>🧹 Manual Cleanup</Text>
-        </TouchableOpacity>
+      <View style={styles.container}>
+        <Text style={styles.title}>🛹 SkateHubba</Text>
+        <Text style={styles.subtitle}>React Native App with Auto Utils</Text>
         
-        <TouchableOpacity style={styles.button} onPress={showAppInfo}>
-          <Text style={styles.buttonText}>ℹ️ App Info</Text>
-        </TouchableOpacity>
+        <View style={styles.statsContainer}>
+          <Text style={styles.statsTitle}>📊 System Stats</Text>
+          
+          {cleanupStats && (
+            <View style={styles.statBlock}>
+              <Text style={styles.statLabel}>Last Cleanup:</Text>
+              <Text style={styles.statValue}>
+                {new Date(cleanupStats.lastCleanup).toLocaleTimeString()}
+              </Text>
+              <Text style={styles.statValue}>
+                Storage: {cleanupStats.storage?.totalSize} ({cleanupStats.storage?.totalKeys} items)
+              </Text>
+            </View>
+          )}
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={performManualCleanup}>
+            <Text style={styles.buttonText}>🧹 Manual Cleanup</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.button} onPress={showAppInfo}>
+            <Text style={styles.buttonText}>ℹ️ App Info</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.button} onPress={updateStats}>
+            <Text style={styles.buttonText}>🔄 Refresh Stats</Text>
+          </TouchableOpacity>
+        </View>
         
-        <TouchableOpacity style={styles.button} onPress={updateStats}>
-          <Text style={styles.buttonText}>🔄 Refresh Stats</Text>
-        </TouchableOpacity>
+        <StatusBar style="auto" />
       </View>
-      
-      <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   );
 }
 
