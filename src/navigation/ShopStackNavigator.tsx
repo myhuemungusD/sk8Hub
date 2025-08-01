@@ -57,8 +57,8 @@ export function ShopStackNavigator() {
         ...SCREEN_OPTIONS.defaultHeader,
       }}
     >
-      <Stack.Screen 
-        name="ShopHome" 
+      <Stack.Screen
+        name="ShopHome"
         component={ShopScreen}
         options={{
           title: 'Shop',
@@ -68,27 +68,27 @@ export function ShopStackNavigator() {
           ),
         }}
       />
-      
-      <Stack.Screen 
-        name="ItemDetails" 
+
+      <Stack.Screen
+        name="ItemDetails"
         component={ItemDetailsScreen}
         options={({ route }) => ({
           title: route.params.itemName || 'Item Details',
           headerBackTitle: 'Shop',
         })}
       />
-      
-      <Stack.Screen 
-        name="Cart" 
+
+      <Stack.Screen
+        name="Cart"
         component={CartScreen}
         options={{
           title: 'Cart',
           headerBackTitle: 'Shop',
         }}
       />
-      
-      <Stack.Screen 
-        name="Checkout" 
+
+      <Stack.Screen
+        name="Checkout"
         component={CheckoutScreen}
         options={{
           title: 'Checkout',
@@ -96,9 +96,9 @@ export function ShopStackNavigator() {
           gestureEnabled: false, // Prevent accidental back during checkout
         }}
       />
-      
-      <Stack.Screen 
-        name="PurchaseSuccess" 
+
+      <Stack.Screen
+        name="PurchaseSuccess"
         component={PurchaseSuccessScreen}
         options={{
           title: 'Success!',

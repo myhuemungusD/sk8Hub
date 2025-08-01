@@ -118,35 +118,35 @@ export type RootStackParamList = {
 };
 
 // Screen Props Types for type-safe navigation
-export type AuthScreenProps<T extends keyof AuthStackParamList> = 
+export type AuthScreenProps<T extends keyof AuthStackParamList> =
   NativeStackScreenProps<AuthStackParamList, T>;
 
-export type MainTabScreenProps<T extends keyof MainTabParamList> = 
+export type MainTabScreenProps<T extends keyof MainTabParamList> =
   BottomTabScreenProps<MainTabParamList, T>;
 
-export type MapScreenProps<T extends keyof MapStackParamList> = 
+export type MapScreenProps<T extends keyof MapStackParamList> =
   NativeStackScreenProps<MapStackParamList, T>;
 
-export type BattleScreenProps<T extends keyof BattleStackParamList> = 
+export type BattleScreenProps<T extends keyof BattleStackParamList> =
   NativeStackScreenProps<BattleStackParamList, T>;
 
-export type ShopScreenProps<T extends keyof ShopStackParamList> = 
+export type ShopScreenProps<T extends keyof ShopStackParamList> =
   NativeStackScreenProps<ShopStackParamList, T>;
 
-export type ProfileScreenProps<T extends keyof ProfileStackParamList> = 
+export type ProfileScreenProps<T extends keyof ProfileStackParamList> =
   NativeStackScreenProps<ProfileStackParamList, T>;
 
-export type RootScreenProps<T extends keyof RootStackParamList> = 
+export type RootScreenProps<T extends keyof RootStackParamList> =
   NativeStackScreenProps<RootStackParamList, T>;
 
 // Combined navigation prop for screens that need access to multiple navigators
 export type CompositeScreenProps<
   A extends Record<string, any>,
-  B extends Record<string, any>
+  B extends Record<string, any>,
 > = A & B;
 
 // Utility type for getting navigation prop
-export type NavigationProp<T extends keyof RootStackParamList> = 
+export type NavigationProp<T extends keyof RootStackParamList> =
   RootScreenProps<T>['navigation'];
 
 // Tab bar visibility configuration

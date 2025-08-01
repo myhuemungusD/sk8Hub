@@ -4,8 +4,18 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { useAppNavigation, useCurrentRouteName, useTabBarVisibility } from '../hooks/useNavigation';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import {
+  useAppNavigation,
+  useCurrentRouteName,
+  useTabBarVisibility,
+} from '../hooks/useNavigation';
 
 export default function NavigationDemo() {
   const navigation = useAppNavigation();
@@ -15,74 +25,81 @@ export default function NavigationDemo() {
   const navigationExamples = [
     {
       title: 'Navigate to Spot Details',
-      action: () => navigation.navigate('Main', {
-        screen: 'MapStack',
-        params: {
-          screen: 'SpotDetails',
+      action: () =>
+        navigation.navigate('Main', {
+          screen: 'MapStack',
           params: {
-            spotId: 'demo-spot-1',
-            spotName: 'Venice Beach Skate Park',
-            latitude: 33.9850,
-            longitude: -118.4695,
-          }
-        }
-      })
+            screen: 'SpotDetails',
+            params: {
+              spotId: 'demo-spot-1',
+              spotName: 'Venice Beach Skate Park',
+              latitude: 33.985,
+              longitude: -118.4695,
+            },
+          },
+        }),
     },
     {
       title: 'Start Battle',
-      action: () => navigation.navigate('Main', {
-        screen: 'BattleStack',
-        params: {
-          screen: 'BattleLobby'
-        }
-      })
+      action: () =>
+        navigation.navigate('Main', {
+          screen: 'BattleStack',
+          params: {
+            screen: 'BattleLobby',
+          },
+        }),
     },
     {
       title: 'View Shop Item',
-      action: () => navigation.navigate('Main', {
-        screen: 'ShopStack',
-        params: {
-          screen: 'ItemDetails',
+      action: () =>
+        navigation.navigate('Main', {
+          screen: 'ShopStack',
           params: {
-            itemId: 'deck-001',
-            itemName: 'Thunder Deck Pro',
-            price: 120,
-            rarity: 'epic'
-          }
-        }
-      })
+            screen: 'ItemDetails',
+            params: {
+              itemId: 'deck-001',
+              itemName: 'Thunder Deck Pro',
+              price: 120,
+              rarity: 'epic',
+            },
+          },
+        }),
     },
     {
       title: 'Open Closet',
-      action: () => navigation.navigate('Main', {
-        screen: 'ProfileStack',
-        params: {
-          screen: 'Closet'
-        }
-      })
+      action: () =>
+        navigation.navigate('Main', {
+          screen: 'ProfileStack',
+          params: {
+            screen: 'Closet',
+          },
+        }),
     },
     {
       title: 'Show Battle Invite Modal',
-      action: () => navigation.navigate('BattleInvite', {
-        fromUserId: 'user123',
-        fromUsername: 'ProSkater2024'
-      })
+      action: () =>
+        navigation.navigate('BattleInvite', {
+          fromUserId: 'user123',
+          fromUsername: 'ProSkater2024',
+        }),
     },
     {
       title: 'Hide Tab Bar',
-      action: hideTabBar
+      action: hideTabBar,
     },
     {
       title: 'Show Tab Bar',
-      action: showTabBar
-    }
+      action: showTabBar,
+    },
   ];
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>🧭 Navigation Demo</Text>
-      <Text style={styles.subtitle}>Current Route: {currentRoute || 'Unknown'}</Text>
-      
+      <Text style={styles.subtitle}>
+        Current Route: {currentRoute || 'Unknown'}
+      </Text>
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Navigation Examples</Text>
         {navigationExamples.map((example, index) => (
@@ -98,7 +115,9 @@ export default function NavigationDemo() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Navigation Features</Text>
-        <Text style={styles.feature}>✅ Type-safe navigation with TypeScript</Text>
+        <Text style={styles.feature}>
+          ✅ Type-safe navigation with TypeScript
+        </Text>
         <Text style={styles.feature}>✅ Deep linking support</Text>
         <Text style={styles.feature}>✅ Modal presentations</Text>
         <Text style={styles.feature}>✅ Tab bar visibility control</Text>

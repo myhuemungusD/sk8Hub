@@ -58,43 +58,43 @@ export function AuthNavigator() {
         gestureEnabled: true,
       }}
     >
-      <Stack.Screen 
-        name="Welcome" 
+      <Stack.Screen
+        name="Welcome"
         component={WelcomeScreen}
         options={{
           ...SCREEN_OPTIONS.noHeader,
         }}
       />
-      
-      <Stack.Screen 
-        name="Login" 
+
+      <Stack.Screen
+        name="Login"
         component={LoginScreen}
         options={{
           title: 'Welcome Back',
           headerBackTitle: 'Back',
         }}
       />
-      
-      <Stack.Screen 
-        name="Register" 
+
+      <Stack.Screen
+        name="Register"
         component={RegisterScreen}
         options={{
           title: 'Join SkateHubba',
           headerBackTitle: 'Back',
         }}
       />
-      
-      <Stack.Screen 
-        name="ForgotPassword" 
+
+      <Stack.Screen
+        name="ForgotPassword"
         component={ForgotPasswordScreen}
         options={{
           title: 'Reset Password',
           headerBackTitle: 'Login',
         }}
       />
-      
-      <Stack.Screen 
-        name="Onboarding" 
+
+      <Stack.Screen
+        name="Onboarding"
         component={OnboardingScreen}
         options={{
           ...SCREEN_OPTIONS.noHeader,

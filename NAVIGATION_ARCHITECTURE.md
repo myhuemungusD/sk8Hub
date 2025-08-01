@@ -36,6 +36,7 @@ App.tsx
 ## 🎯 Key Features
 
 ### 1. **Type-Safe Navigation**
+
 ```typescript
 // Fully typed navigation with IntelliSense
 navigation.navigate('Main', {
@@ -46,37 +47,44 @@ navigation.navigate('Main', {
       spotId: string,
       spotName: string,
       latitude: number,
-      longitude: number
-    }
-  }
+      longitude: number,
+    },
+  },
 });
 ```
 
 ### 2. **Modular Stack Navigators**
+
 Each feature has its own stack navigator:
+
 - **MapStack**: Map, spot details, check-ins
 - **BattleStack**: SKATE battles, recording, results
 - **ShopStack**: Shopping, item details, checkout
 - **ProfileStack**: Profile, closet, settings
 
 ### 3. **Modal System**
+
 ```typescript
 // Present modals over the entire app
 navigation.navigate('BattleInvite', {
   fromUserId: 'user123',
-  fromUsername: 'ProSkater'
+  fromUsername: 'ProSkater',
 });
 ```
 
 ### 4. **Custom Hooks**
+
 ```typescript
 // Rich hooks for common navigation patterns
 const { hideTabBar, showTabBar } = useTabBarVisibility();
 const currentRoute = useCurrentRouteName();
-useBackHandler(() => { /* custom back logic */ });
+useBackHandler(() => {
+  /* custom back logic */
+});
 ```
 
 ### 5. **Deep Linking Ready**
+
 ```typescript
 // Automatic deep linking support
 https://skatehubba.app/spot/venice-beach
@@ -87,35 +95,38 @@ https://skatehubba.app/shop/item/deck-001
 ## 🚀 Usage Examples
 
 ### Basic Navigation
+
 ```typescript
 import { useAppNavigation } from '../src/navigation';
 
 function MyComponent() {
   const navigation = useAppNavigation();
-  
+
   const goToSpot = () => {
     navigation.navigate('Main', {
       screen: 'MapStack',
       params: {
         screen: 'SpotDetails',
-        params: { spotId: 'spot123', spotName: 'Venice Beach' }
-      }
+        params: { spotId: 'spot123', spotName: 'Venice Beach' },
+      },
     });
   };
 }
 ```
 
 ### Modal Presentation
+
 ```typescript
 const presentBattleInvite = () => {
   navigation.navigate('BattleInvite', {
     fromUserId: 'user123',
-    fromUsername: 'SkaterPro'
+    fromUsername: 'SkaterPro',
   });
 };
 ```
 
 ### Tab Bar Control
+
 ```typescript
 const { hideTabBar, showTabBar } = useTabBarVisibility();
 
@@ -127,6 +138,7 @@ showTabBar();
 ```
 
 ### Programmatic Navigation (Outside React)
+
 ```typescript
 import { navigate } from '../src/navigation';
 
@@ -136,8 +148,8 @@ function handlePushNotification(spotId: string) {
     screen: 'MapStack',
     params: {
       screen: 'SpotDetails',
-      params: { spotId }
-    }
+      params: { spotId },
+    },
   });
 }
 ```
@@ -145,6 +157,7 @@ function handlePushNotification(spotId: string) {
 ## 🎨 Styling & Configuration
 
 ### Centralized Configuration
+
 All navigation styling and behavior is configured in `src/navigation/config.ts`:
 
 ```typescript
@@ -161,11 +174,12 @@ export const SCREEN_OPTIONS = {
   modal: {
     presentation: 'modal',
     headerShown: false,
-  }
+  },
 };
 ```
 
 ### Tab Bar Customization
+
 ```typescript
 export const TAB_BAR_CONFIG = {
   style: {
@@ -181,6 +195,7 @@ export const TAB_BAR_CONFIG = {
 ## 🔧 Advanced Features
 
 ### 1. **Screen Analytics Tracking**
+
 ```typescript
 // Automatic screen tracking
 useScreenTracking('CustomScreenName');
@@ -194,6 +209,7 @@ onStateChange={async () => {
 ```
 
 ### 2. **Network-Aware Navigation**
+
 ```typescript
 const { navigateIfOnline } = useNetworkAwareNavigation();
 
@@ -204,6 +220,7 @@ navigateIfOnline('ShopStack', params, () => {
 ```
 
 ### 3. **Batch Operations**
+
 ```typescript
 const { executeBatch } = useBatchNavigation();
 
@@ -215,6 +232,7 @@ executeBatch([
 ```
 
 ### 4. **Custom Back Handling**
+
 ```typescript
 // Per-screen back button handling
 useBackHandler(() => {
@@ -229,18 +247,21 @@ useBackHandler(() => {
 ## 🎯 MVP Implementation Priority
 
 ### Phase 1: Core Navigation (✅ Complete)
+
 - [x] Auth flow (Welcome → Login → Onboarding)
 - [x] Main tab navigation
 - [x] Basic stack navigators
 - [x] Type definitions
 
 ### Phase 2: Feature-Specific Flows
+
 - [ ] Map screen with real map integration
 - [ ] Battle flow with video recording
 - [ ] Shop with purchase flow
 - [ ] Profile with gear management
 
 ### Phase 3: Advanced Features
+
 - [ ] Push notification deep linking
 - [ ] Offline navigation handling
 - [ ] Advanced animations
@@ -249,12 +270,14 @@ useBackHandler(() => {
 ## 🛠️ Development Guidelines
 
 ### Adding New Screens
+
 1. **Define types** in `src/types/navigation.ts`
 2. **Add to appropriate stack** navigator
 3. **Create screen component** with proper typing
 4. **Update configuration** if needed
 
 Example:
+
 ```typescript
 // 1. Add to type definition
 export type MapStackParamList = {
@@ -265,8 +288,8 @@ export type MapStackParamList = {
 };
 
 // 2. Add to MapStackNavigator.tsx
-<Stack.Screen 
-  name="NewMapScreen" 
+<Stack.Screen
+  name="NewMapScreen"
   component={NewMapScreen}
   options={{
     title: 'New Map Feature',
@@ -283,6 +306,7 @@ function NewMapScreen({ route, navigation }: Props) {
 ```
 
 ### Adding Modals
+
 ```typescript
 // 1. Add to RootStackParamList
 export type RootStackParamList = {
@@ -293,8 +317,8 @@ export type RootStackParamList = {
 };
 
 // 2. Add to RootNavigator.tsx modal group
-<Stack.Screen 
-  name="NewModal" 
+<Stack.Screen
+  name="NewModal"
   component={NewModalComponent}
 />
 
@@ -305,7 +329,9 @@ navigation.navigate('NewModal', { modalParam: 'value' });
 ## 🔍 Debugging & Testing
 
 ### Navigation State Logging
+
 All navigation state changes are automatically logged in development:
+
 ```
 🧭 Navigation ready. Initial route: Welcome
 🧭 Route changed: Welcome -> Login
@@ -313,6 +339,7 @@ All navigation state changes are automatically logged in development:
 ```
 
 ### Testing Navigation
+
 ```typescript
 import { navigationRef } from '../src/navigation';
 
@@ -320,9 +347,9 @@ import { navigationRef } from '../src/navigation';
 test('navigates to correct screen', () => {
   navigationRef.navigate('MapStack', {
     screen: 'SpotDetails',
-    params: { spotId: 'test' }
+    params: { spotId: 'test' },
   });
-  
+
   expect(navigationRef.getCurrentRoute()?.name).toBe('SpotDetails');
 });
 ```
@@ -330,15 +357,18 @@ test('navigates to correct screen', () => {
 ## 🚀 Performance Optimizations
 
 ### 1. **Lazy Loading**
+
 Stack navigators automatically lazy-load screens, improving startup time.
 
 ### 2. **Memory Management**
+
 Integrated with your existing AutoCleaner utility for optimal memory usage.
 
 ### 3. **Gesture Optimization**
+
 ```typescript
 // Disable gestures on critical screens
-<Stack.Screen 
+<Stack.Screen
   options={{
     gestureEnabled: false // Prevents accidental navigation
   }}
@@ -346,6 +376,7 @@ Integrated with your existing AutoCleaner utility for optimal memory usage.
 ```
 
 ### 4. **Tab Bar Optimization**
+
 Dynamic tab bar visibility prevents unnecessary renders.
 
 ## 🎉 Benefits of This Architecture
