@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Shop items - read only for users
+    match /shopItems/{itemId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.token.admin == true;
+    }
+    
+    // User inventory - users can only access their own
+    match /userInventory/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Item drops - read only for users
+    match /itemDrops/{dropId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.token.admin == true;
+    }
+    
+    // Purchase history - users can only read their own
+    match /purchaseHistory/{purchaseId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if false; // Only Cloud Functions can write
+    }
+    
+    // Item popularity - read only
+    match /itemPopularity/{itemId} {
+      allow read: if true;
+      allow write: if false; // Only Cloud Functions can write
+    }
+  }
+}

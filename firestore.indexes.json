@@ -1,0 +1,55 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "shopItems",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isHeroItem",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "inStock",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "shopItems",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "inStock",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "rarity",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "itemDrops",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isActive",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dropDate",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

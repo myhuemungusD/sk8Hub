@@ -1,0 +1,38 @@
+{
+  "name": "sk8hub",
+  "displayName": "Sk8Hub",
+  "description": "A modern skateboarding community hub application",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "firebase": "^12.0.0",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.536.0",
+    "next": "15.4.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-leaflet": "^5.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/leaflet": "^1.9.20",
+    "@types/node": "^20.19.9",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "debug": "^4.4.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.5",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
